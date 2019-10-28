@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sliver_click/moji_scrollablescroll_physics.dart';
 import 'package:flutter_sliver_click/widgets/header_widget.dart';
 import 'dart:ui';
 class MOjiPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _MOjiPageState extends State<MOjiPage> {
             itemBuilder: (context, index){
           return _getWidgetByIndex(context, index);
         },
-//          physics: null,
+          physics: MOjiScrollableScrollPhysics(),
 //          controller: null,
         itemCount: 5,
         ),
