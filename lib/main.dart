@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliver_click/splash.dart';
 
+import 'moji_page.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,10 +24,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 //      home: SliverClickPage(),
-//        home: MOjiPage(),
+        home: MOjiPage(),
 //      home: TestPage(),
 //      home: ProviderTestPage(),
-      home: SplashPage(),
+//      home: SplashPage(),
     );
   }
 }

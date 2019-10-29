@@ -9,13 +9,10 @@ class ProviderTestPage extends StatefulWidget {
 }
 
 class _ProviderTestPageState extends State<ProviderTestPage> {
-
   @override
   void initState() {
     super.initState();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -35,17 +32,18 @@ class _ProviderTestPageState extends State<ProviderTestPage> {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: AccurateConsumer2<MOProvider>(
-                        builder: (context,moProvider) {
+                      child: AccurateConsumer<MOProvider>(
+                        builder: (context, moProvider) {
                           print('build 高度1');
                           moProvider.subscribeHeaderH(context);
-                          return Text('高度1：' + moProvider.getHeaderH()?.toString());
+                          return Text(
+                              '高度1：' + moProvider.getHeaderH()?.toString());
                         },
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: AccurateConsumer2<MOProvider>(
+                      child: AccurateConsumer<MOProvider>(
                         builder: (context, moProvider) {
                           print('build 年龄');
                           return Text('年龄：' + moProvider?.getAge()?.toString());
@@ -54,11 +52,12 @@ class _ProviderTestPageState extends State<ProviderTestPage> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: AccurateConsumer2<MOProvider>(
-                        builder: (context,moProvider) {
+                      child: AccurateConsumer<MOProvider>(
+                        builder: (context, moProvider) {
                           print('build 高度2');
                           moProvider.subscribeHeaderH(context);
-                          return Text('高度2：' + moProvider.getHeaderH()?.toString());
+                          return Text(
+                              '高度2：' + moProvider.getHeaderH()?.toString());
                         },
                       ),
                     )

@@ -100,20 +100,20 @@ class Property<T> {
   }
 }
 
-class AccurateConsumer2<T extends BaseProvider> extends StatefulWidget {
+class AccurateConsumer<T extends BaseProvider> extends StatefulWidget {
   final Widget Function(BuildContext context, T provider) builder;
 
-  const AccurateConsumer2({Key key, this.builder})
+  const AccurateConsumer({Key key, this.builder})
       : super(key: key);
 
   @override
-  State<AccurateConsumer2<T>> createState() {
+  State<AccurateConsumer<T>> createState() {
     print('builder:' + builder?.toString());
-    return _AccurateConsumer2State<T>();
+    return _AccurateConsumerState<T>();
   }
 }
 
-class _AccurateConsumer2State<T extends BaseProvider> extends State<AccurateConsumer2<T>> {
+class _AccurateConsumerState<T extends BaseProvider> extends State<AccurateConsumer<T>> {
   T provider;
   @override
   Widget build(BuildContext context) {
