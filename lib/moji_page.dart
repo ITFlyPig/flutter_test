@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliver_click/moji_scrollablescroll_physics.dart';
 import 'package:flutter_sliver_click/widgets/header_widget.dart';
 import 'dart:ui';
+
+import 'package:provider/provider.dart';
+
+import 'moji/moji_provider.dart';
 class MOjiPage extends StatefulWidget {
   @override
   _MOjiPageState createState() => _MOjiPageState();
@@ -14,18 +18,33 @@ class _MOjiPageState extends State<MOjiPage> {
   static const int DAY_15 = 3;//15天天气预报
   static const int LIFE = 4;//生活指数
   double _headerH = 0.0;//头部的高度
+  MOProvider _moProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _moProvider = MOProvider();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.lightBlue,
-      child: Scaffold(
-        body: ListView.builder(
+    _headerH = MediaQuery.of(context).size.height - 100 - MediaQueryData.fromWindow(window).padding.top;
+    _moProvider.setHeaderH(_headerH);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: _moProvider)
+      ],
+      child: Material(
+        color: Colors.lightBlue,
+        child: Scaffold(
+          body: ListView.builder(
             itemBuilder: (context, index){
-          return _getWidgetByIndex(context, index);
-        },
-          physics: MOjiScrollableScrollPhysics(),
+              return _getWidgetByIndex(context, index);
+            },
+            physics: MOjiScrollableScrollPhysics(_headerH),
 //          controller: null,
-        itemCount: 5,
+            itemCount: 5,
+          ),
         ),
       ),
     );
@@ -58,7 +77,7 @@ class _MOjiPageState extends State<MOjiPage> {
 
   ///获取天气的概况信息
   Widget _getHeaderWidget() {
-    _headerH = MediaQuery.of(context).size.height - 100 - MediaQueryData.fromWindow(window).padding.top;
+    print('实际头部的高度：' + _headerH.toString());
     return HeaderWidget(height: _headerH,);
 
   }
