@@ -29,6 +29,8 @@ class _MOjiPageState extends State<MOjiPage> {
   @override
   Widget build(BuildContext context) {
     _headerH = MediaQuery.of(context).size.height - 100 - MediaQueryData.fromWindow(window).padding.top;
+//    _headerH = 651;
+    print('build _headerH:' + _headerH.toString());
     _moProvider.setHeaderH(_headerH);
     return MultiProvider(
       providers: [
@@ -52,6 +54,7 @@ class _MOjiPageState extends State<MOjiPage> {
 
 
   Widget _getWidgetByIndex(BuildContext context, int index) {
+
     Widget widget;
     switch(index) {
       case HEADER:

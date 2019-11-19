@@ -8,7 +8,7 @@ class MOjiScrollableScrollPhysics extends ScrollPhysics {
   /// Creates scroll physics that bounce back from the edge.
   final double headerH;
 
-  const MOjiScrollableScrollPhysics(this.headerH, {ScrollPhysics parent})
+   MOjiScrollableScrollPhysics(this.headerH, {ScrollPhysics parent})
       : super(parent: parent);
 
   @override
@@ -27,11 +27,14 @@ class MOjiScrollableScrollPhysics extends ScrollPhysics {
   double frictionFactor(double overscrollFraction) =>
       0.52 * math.pow(1 - overscrollFraction, 2);
 
+  //记录滚动的方向
+  double _scrollSign = 1;
+
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
     assert(offset != 0.0);
     assert(position.minScrollExtent <= position.maxScrollExtent);
-
+    _scrollSign = offset.sign;
     if (!position.outOfRange) return offset;
 
     final double overscrollPastStart =
@@ -49,6 +52,7 @@ class MOjiScrollableScrollPhysics extends ScrollPhysics {
             (overscrollPast - offset.abs()) / position.viewportDimension)
         : frictionFactor(overscrollPast / position.viewportDimension);
     final double direction = offset.sign;
+
 
     return direction * _applyFriction(overscrollPast, offset.abs(), friction);
   }
@@ -82,19 +86,22 @@ class MOjiScrollableScrollPhysics extends ScrollPhysics {
         ' outOfRange:' +
         position.outOfRange.toString() +
         ' header:' +
-        headerH.toString());
+        headerH.toString() + ' 方向：' + _scrollSign.toString());
     if (velocity.abs() >= tolerance.velocity ||
         position.outOfRange ||
         (velocity.abs() == 0 &&
             position.pixels.toInt() > 0 &&
             position.pixels.toInt() < headerH.toInt())) {
       //速度大于设定速度阈值或者发生overscroll时创建弹道模拟器
+      //因为当速度为0时，系统传过来的正负并不能反应出滑动的方向，这手动矫正一下
+      if(velocity.abs() == 0) {
+        velocity = _scrollSign > 0 ? -0.0 : 0.0;
+      }
       return MyBouncingScrollSimulation(
         headerH: headerH,
         spring: spring,
         position: position.pixels,
         velocity: velocity * 0.91,
-        // TODO(abarth): We should move this constant closer to the drag end.
         leadingExtent: position.minScrollExtent,
         trailingExtent: position.maxScrollExtent,
         tolerance: tolerance,
