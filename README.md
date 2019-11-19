@@ -1,16 +1,5 @@
-# flutter_sliver_click
+这是一个**测试性的项目**，用来验证自己的想法的，代码比较随意，手动狗头。
 
-测试Flutter中的自定义Sliver点击问题
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+目前验证的想法：
+ * 1. 墨迹天气首页滑动效果
+ * 2. 扩展provider库，实现了更新哪个属性，只刷新引用对应属性的控件。而不会刷新一个属性，引用这个bean所有属性的控件都会刷新。
